@@ -13,6 +13,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class WeatherAdapter(private val items: MutableList<Forecast>) :
     RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
@@ -40,6 +41,13 @@ class WeatherAdapter(private val items: MutableList<Forecast>) :
 
     override fun getItemCount() = items.size
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        holder.bind(items[position])
+        holder.imageViewTemperatureIcon.setImageResource(items[position].weatherIcon)
+    }
+
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val imageViewTemperatureIcon: ImageView =
@@ -62,9 +70,5 @@ class WeatherAdapter(private val items: MutableList<Forecast>) :
             val roundTemp = Math.round(data.temperature)
             textViewTemperature.text = "$roundTemp °"
         }
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      //  TODO("Not yet implemented")
     }
 }

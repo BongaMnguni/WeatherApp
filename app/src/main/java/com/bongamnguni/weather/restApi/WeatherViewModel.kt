@@ -23,6 +23,4 @@ class WeatherViewModel : ViewModel()
     fun cancelJobs (){
         CurrentWeatherRepository.cancelJobs()
     }
-
-
 }

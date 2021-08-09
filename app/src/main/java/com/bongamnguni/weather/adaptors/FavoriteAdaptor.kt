@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bongamnguni.weather.R
 import com.bongamnguni.weather.database.FavoriteModel
 
-
 class FavoriteAdaptor(private val items: MutableList<FavoriteModel>) : RecyclerView.Adapter<FavoriteAdaptor.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
