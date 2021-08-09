@@ -1,6 +1,7 @@
 package com.bongamnguni.weather.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -71,6 +72,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         requestLocationPermission()
+
+        getCurrentWeather("Durban")
+        getForecast("Durban")
 
         //init items
         val textViewCurrentTemp1: TextView = findViewById(R.id.textViewCurrentTemp1)
@@ -143,8 +147,8 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            /*val intent = Intent(this@MainActivity, AddCityActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this@MainActivity, AddCityActivity::class.java)
+            startActivity(intent)
         }
     }
 
