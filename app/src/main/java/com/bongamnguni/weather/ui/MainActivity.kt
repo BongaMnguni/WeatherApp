@@ -34,6 +34,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_first.*
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -210,9 +211,6 @@ class MainActivity : AppCompatActivity() {
             val sdf = SimpleDateFormat("dd/MM/yy hh:mm a")
             val updatedAt = sdf.format(netDate)
 
-            val notificationSdf = SimpleDateFormat("hh:mm")
-            val notificationupdatedAt = notificationSdf.format(netDate)
-
             val resourceId = when (tempTitle) {
                 "Clouds" -> R.drawable.forest_cloudy
                 "Sunny" -> R.drawable.forest_sunny
@@ -279,7 +277,6 @@ class MainActivity : AppCompatActivity() {
         timestamp: Int
     ) {
         //init ForecastViewModel room database
-
         val forecastData =
             Forecast(0, forecastDate, temperature, temperatureDescription, weatherIcon, timestamp)
         forecastViewModel.insertForecast(forecastData)
@@ -399,18 +396,22 @@ class MainActivity : AppCompatActivity() {
                                     current_lat = location.latitude
                                     current_long = location.longitude
 
-                                    addresses =
-                                        geocoder.getFromLocation(current_lat, current_long, 1)
+                                    try {
+                                        addresses = geocoder.getFromLocation(current_lat, current_long, 1)
 
-                                    val address: String = addresses[0].locality
-                                    //Assigning latLong to find current weather
-                                    getCurrentWeather(address)
-                                    getForecast(address)
+                                        val address: String = addresses[0].locality
+
+                                        getCurrentWeather(address)
+                                        getForecast(address)
+                                    } catch (ex: Exception) {
+                                        Toast.makeText(this,
+                                            "Failed to get current location$ex",Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                             }
                             .addOnFailureListener {
                                 Toast.makeText(
-                                    this, "Failed on getting current location",
+                                    this, "Failed to get current location",
                                     Toast.LENGTH_SHORT
                                 ).show()
 
