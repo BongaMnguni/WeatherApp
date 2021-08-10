@@ -3,6 +3,7 @@
     package="com.bongamnguni.weather">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -11,8 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value=">AIzaSyB7kee56JtlAyTw7r21RuzNJCFhdyzNdgk"/>
+
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".SplashScreen"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,7 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dvt.weather.ui.activity.AddCityActivity"/>
+        <activity android:name=".MapsActivity"/>
+        <activity android:name=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.AddCityActivity"/>
     </application>
 
 </manifest>

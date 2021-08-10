@@ -73,9 +73,6 @@ class MainActivity : AppCompatActivity() {
 
         requestLocationPermission()
 
-        getCurrentWeather("Durban")
-        getForecast("Durban")
-
         //init items
         val textViewCurrentTemp1: TextView = findViewById(R.id.textViewCurrentTemp1)
         val textViewCurrentTemp2: TextView = findViewById(R.id.textViewCurrentTemp2)

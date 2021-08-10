@@ -1,5 +1,6 @@
 package com.bongamnguni.weather.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
+import com.bongamnguni.weather.MapsActivity
 import com.bongamnguni.weather.R
 import com.bongamnguni.weather.adaptors.FavoriteAdaptor
 import com.bongamnguni.weather.database.FavoriteModel
@@ -24,6 +26,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONException
@@ -78,7 +81,6 @@ class AddCityActivity : AppCompatActivity() {
             }
         })
 
-
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
         favoriteAdaptor = FavoriteAdaptor(mutableListOf())
@@ -93,6 +95,12 @@ class AddCityActivity : AppCompatActivity() {
         })
 
         recyclerView.adapter = favoriteAdaptor
+
+        val fab = findViewById<FloatingActionButton>(R.id.mapFab)
+        fab.setOnClickListener {
+            val intent = Intent(this@AddCityActivity, MapsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     //TODO
