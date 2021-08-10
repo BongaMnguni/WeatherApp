@@ -15,7 +15,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value=">AIzaSyB7kee56JtlAyTw7r21RuzNJCFhdyzNdgk"/>
+            android:value=">AIzaSyB-0u5jx8KgklxLgFddtDFALvqMRlPHyLw"/>
 
         <activity
             android:name=".SplashScreen"
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MapsActivity"/>
+        <activity android:name=".ui.MapsActivity"/>
         <activity android:name=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.AddCityActivity"/>

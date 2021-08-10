@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
-import com.bongamnguni.weather.MapsActivity
 import com.bongamnguni.weather.R
 import com.bongamnguni.weather.adaptors.FavoriteAdaptor
 import com.bongamnguni.weather.database.FavoriteModel
@@ -33,7 +32,6 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-
 class AddCityActivity : AppCompatActivity() {
 
     lateinit var favoriteAdaptor: FavoriteAdaptor
@@ -44,8 +42,11 @@ class AddCityActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_city)
-        val apiKey = getString(R.string.google_maps_key)
 
+        supportActionBar!!.title = getString(R.string.app_name)
+        //supportActionBar!!.subtitle = getString(R.string.weather_services)
+
+        val apiKey = getString(R.string.google_maps_key)
 
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, apiKey)
@@ -73,9 +74,16 @@ class AddCityActivity : AppCompatActivity() {
 
             override fun onError(status: Status) {
                 Log.i("AddAutocomplete", "Place: ${status.statusMessage}")
+                Log.i("AddAutocomplete", "Place: ${status.status}")
                 Toast.makeText(
                     applicationContext,
                     "Place: ${status.statusMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                Toast.makeText(
+                    applicationContext,
+                    "Place: ${status.status}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -106,7 +114,8 @@ class AddCityActivity : AppCompatActivity() {
     //TODO
     private fun getTemperatureByPlaceName(city: String) {
         // url to get json object
-        val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&units=metric&appid=${Constants.API_KEY}"
+        val url =
+            "https://api.openweathermap.org/data/2.5/weather?q=$city&units=metric&appid=${Constants.API_KEY}"
 
         // request json object response from the provided url
         val request = JsonObjectRequest(
