@@ -25,7 +25,7 @@
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:src="@drawable/ic_baseline_star_outline_24"
+        android:src="@drawable/ic_baseline_map_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.904"
         app:layout_constraintStart_toStartOf="parent" />

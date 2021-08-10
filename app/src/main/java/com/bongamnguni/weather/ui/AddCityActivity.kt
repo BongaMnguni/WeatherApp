@@ -42,9 +42,7 @@ class AddCityActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_city)
-
         supportActionBar!!.title = getString(R.string.app_name)
-        //supportActionBar!!.subtitle = getString(R.string.weather_services)
 
         val apiKey = getString(R.string.google_maps_key)
 
@@ -52,9 +50,7 @@ class AddCityActivity : AppCompatActivity() {
             Places.initialize(applicationContext, apiKey)
         }
 
-        // Initialize the AutocompleteSupportFragment.
-        val autocompleteFragment =
-            supportFragmentManager.findFragmentById(R.id.autocomplte) as AutocompleteSupportFragment?
+        val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplte) as AutocompleteSupportFragment?
         autocompleteFragment!!.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
         autocompleteFragment.setCountries("ZA")
         autocompleteFragment.setActivityMode(AutocompleteActivityMode.FULLSCREEN)
@@ -63,6 +59,8 @@ class AddCityActivity : AppCompatActivity() {
                 // TODO: Get info about the selected place.
                 Log.i("AddAutocomplete", "Place: " + place.name + ", " + place.id)
                 selectPlace = "${place.name}"
+
+                place.latLng
 
                 if (selectPlace == "") {
                     Toast.makeText(applicationContext, "Please select a place", Toast.LENGTH_SHORT)
@@ -74,16 +72,9 @@ class AddCityActivity : AppCompatActivity() {
 
             override fun onError(status: Status) {
                 Log.i("AddAutocomplete", "Place: ${status.statusMessage}")
-                Log.i("AddAutocomplete", "Place: ${status.status}")
                 Toast.makeText(
                     applicationContext,
                     "Place: ${status.statusMessage}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                Toast.makeText(
-                    applicationContext,
-                    "Place: ${status.status}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -94,7 +85,6 @@ class AddCityActivity : AppCompatActivity() {
         favoriteAdaptor = FavoriteAdaptor(mutableListOf())
 
 
-        //init ForecastViewModel Room database
         forecastViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
         forecastViewModel.getFavorite().observe(this, Observer<List<FavoriteModel>> { favorite ->
             favoriteAdaptor.clearListData()
@@ -111,7 +101,6 @@ class AddCityActivity : AppCompatActivity() {
         }
     }
 
-    //TODO
     private fun getTemperatureByPlaceName(city: String) {
         // url to get json object
         val url =
@@ -154,5 +143,4 @@ class AddCityActivity : AppCompatActivity() {
         // add network request to volley queue
         VolleySingleton.getInstance(applicationContext).addToRequestQueue(request)
     }
-
 }
