@@ -86,7 +86,7 @@ class AddCityActivity : AppCompatActivity() {
 
 
         forecastViewModel = ViewModelProvider(this).get(ForecastViewModel::class.java)
-        forecastViewModel.getFavorite().observe(this, Observer<List<FavoriteModel>> { favorite ->
+        forecastViewModel.getFavorite().observe(this, Observer { favorite ->
             favoriteAdaptor.clearListData()
             favoriteAdaptor.setListData(favorite)
             favoriteAdaptor.notifyDataSetChanged()
@@ -111,7 +111,7 @@ class AddCityActivity : AppCompatActivity() {
             Request.Method.GET, // method
             url, // url
             null, // json request
-            { response -> // response listener
+            { response -> /* response listener */
 
                 try {
                     val obj: JSONObject = response

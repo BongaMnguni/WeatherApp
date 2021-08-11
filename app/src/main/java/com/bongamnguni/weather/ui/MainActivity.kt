@@ -23,17 +23,13 @@ import com.bongamnguni.weather.R
 import com.bongamnguni.weather.adaptors.WeatherAdapter
 import com.bongamnguni.weather.database.CurrentWeather
 import com.bongamnguni.weather.database.Forecast
-import com.bongamnguni.weather.database.ForecastDao
-import com.bongamnguni.weather.database.RecyclerViewModel
 import com.bongamnguni.weather.repository.ForecastViewModel
-import com.bongamnguni.weather.restApi.CurrentWeather.CurrentWeatherResponse
 import com.bongamnguni.weather.restApi.ForecastViewModelApi
 import com.bongamnguni.weather.restApi.WeatherViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_first.*
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -49,15 +45,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var forecastViewModelApi: ForecastViewModelApi
 
     //------RoomDao
-    lateinit var forecastDao: ForecastDao
-    lateinit var currentWeatherResponse: CurrentWeatherResponse
 
     //Recyclerview
     private lateinit var weatherAdapter: WeatherAdapter
-    private lateinit var recyclerViewModel: RecyclerViewModel
 
-    //global variable of FusedLocationProviderClient
-    val RequestPermissionCode = 1
     var mLocation: Location? = null
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var current_lat: Double = 0.0
@@ -101,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = weatherAdapter
         //currentWeather data from Room
-        forecastViewModel.getCurrent().observe(this, Observer<List<CurrentWeather>> {
+        forecastViewModel.getCurrent().observe(this, {
             // assigning elements
 
             var total_list = it.size
@@ -280,8 +271,7 @@ class MainActivity : AppCompatActivity() {
         val forecastData =
             Forecast(0, forecastDate, temperature, temperatureDescription, weatherIcon, timestamp)
         forecastViewModel.insertForecast(forecastData)
-        //weatherAdapter.setListData(forecastData)
-        //weatherAdapter.notifyDataSetChanged()
+
     }
 
 
@@ -393,10 +383,11 @@ class MainActivity : AppCompatActivity() {
                             .addOnSuccessListener { location: Location? ->
                                 mLocation = location
                                 if (location != null) {
-                                    current_lat = location.latitude
-                                    current_long = location.longitude
 
                                     try {
+                                        current_lat = location.latitude
+                                        current_long = location.longitude
+
                                         addresses = geocoder.getFromLocation(current_lat, current_long, 1)
 
                                         val address: String = addresses[0].locality
